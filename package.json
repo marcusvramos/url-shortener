@@ -1,0 +1,18 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "A simple and efficient URL shortener API with analytics",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": ["url-shortener", "api", "nodejs", "express", "sqlite"],
+  "author": "marcusvramos",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "better-sqlite3": "^9.2.2",
+    "nanoid": "^3.3.7"
+  }
+}
