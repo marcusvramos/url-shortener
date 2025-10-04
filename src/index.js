@@ -1,5 +1,5 @@
 const express = require('express');
-const { insertUrl, getUrl, incrementClicks, getAllUrls, getStats } = require('./database');
+const { insertUrl, getUrl, incrementClicks, getAllUrls, getStats, deleteUrl } = require('./database');
 const { generateShortCode, isValidUrl } = require('./utils');
 
 const app = express();
@@ -16,7 +16,8 @@ app.get('/', (req, res) => {
       'POST /shorten': 'Create a short URL',
       'GET /:code': 'Redirect to original URL',
       'GET /api/urls': 'List all URLs',
-      'GET /api/stats': 'Get statistics'
+      'GET /api/stats': 'Get statistics',
+      'DELETE /api/urls/:code': 'Delete a short URL'
     }
   });
 });
@@ -83,6 +84,28 @@ app.get('/api/stats', (req, res) => {
     res.json(stats);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch statistics' });
+  }
+});
+
+// Delete URL
+app.delete('/api/urls/:code', (req, res) => {
+  const { code } = req.params;
+
+  try {
+    const url = getUrl.get(code);
+
+    if (!url) {
+      return res.status(404).json({ error: 'Short URL not found' });
+    }
+
+    deleteUrl.run(code);
+    res.json({
+      success: true,
+      message: 'URL deleted successfully',
+      deletedCode: code
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete URL' });
   }
 });
 

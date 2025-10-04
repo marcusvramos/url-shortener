@@ -40,11 +40,16 @@ const getStats = db.prepare(`
   FROM urls
 `);
 
+const deleteUrl = db.prepare(`
+  DELETE FROM urls WHERE short_code = ?
+`);
+
 module.exports = {
   db,
   insertUrl,
   getUrl,
   incrementClicks,
   getAllUrls,
-  getStats
+  getStats,
+  deleteUrl
 };

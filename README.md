@@ -98,6 +98,21 @@ GET /api/stats
 }
 ```
 
+#### 5. Delete Short URL
+
+```http
+DELETE /api/urls/:code
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "URL deleted successfully",
+  "deletedCode": "abc123"
+}
+```
+
 ## 📝 Examples
 
 ### Using cURL
@@ -113,6 +128,9 @@ curl http://localhost:3000/api/urls
 
 # Get statistics
 curl http://localhost:3000/api/stats
+
+# Delete a short URL
+curl -X DELETE http://localhost:3000/api/urls/abc123
 ```
 
 ### Using JavaScript (fetch)
